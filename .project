@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>root-project</name>
+	<comment>Project root-project created by Buildship.</comment>
+	<projects>
+		<name>common</name>
+		<name>auth-service</name>
+		<name>eureka-server</name>
+		<name>gateway-service</name>
+		<name>simple-rest-api</name>
+		<name>zuul-server</name>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
+	</natures>
+</projectDescription>

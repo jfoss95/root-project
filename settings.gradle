@@ -1,0 +1,3 @@
+rootProject.name = 'root-project'
+
+include 'common', 'gateway-service', 'auth-service', 'zuul-server', 'eureka-server', 'simple-rest-api'

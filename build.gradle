@@ -1,0 +1,26 @@
+plugins {
+  id "io.spring.dependency-management" version "1.0.8.RELEASE"
+}
+
+subprojects {
+	//ext {
+	//	set('springCloudVersion', "Hoxton.SR1")
+	//}
+	group = 'com.eureka'
+	version = '0.0.1-SNAPSHOT'
+	apply plugin: 'io.spring.dependency-management'
+	
+	repositories {
+	   jcenter()
+	}
+	
+	dependencyManagement {
+		imports {
+	    	mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE")
+	    }
+	}
+}
+
+wrapper {
+    gradleVersion = '4.6'
+}

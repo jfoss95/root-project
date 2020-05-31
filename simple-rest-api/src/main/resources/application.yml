@@ -1,0 +1,11 @@
+server:
+  port: 8100
+  #servlet:
+    #context-path: /simple
+spring:
+  application:
+    name: simple-rest-api
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
