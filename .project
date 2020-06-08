@@ -8,7 +8,8 @@
 		<name>eureka-server</name>
 		<name>gateway-service</name>
 		<name>simple-rest-api</name>
-		<name>zuul-server</name>
+		<name>data-service</name>
+		<name>data-server</name>
 	</projects>
 	<buildSpec>
 		<buildCommand>

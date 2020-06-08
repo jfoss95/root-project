@@ -29,4 +29,11 @@ zuul:
       # In case of auth, we need to pass the "/auth/" in the path to auth service. So, set strip-prefix to false
       strip-prefix: false
       # Exclude authorization from sensitive headers
-      sensitive-headers: Cookie,Set-Cookie 
+      sensitive-headers: Cookie,Set-Cookie
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

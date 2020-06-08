@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: data-service
+  data:
+    gemfire:
+      security:
+        username: jack
+        password: 12345
+server:
+  port: 9091

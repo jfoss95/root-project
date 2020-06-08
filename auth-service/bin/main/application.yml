@@ -7,3 +7,7 @@ eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka
+services:
+  rest:
+    data-service:
+      url: http://localhost:9091/findUserByUsername?username=
