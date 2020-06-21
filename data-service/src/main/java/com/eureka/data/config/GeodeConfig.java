@@ -12,7 +12,7 @@ import org.springframework.data.gemfire.CacheFactoryBean;
 import org.springframework.data.gemfire.LocalRegionFactoryBean;
 import org.springframework.data.gemfire.cache.GemfireCacheManager;
 
-import com.eureka.data.model.UserInfo;
+import com.eureka.data.model.User;
 import com.eureka.data.repo.UserCredentialsRepository;
 
 @Configuration

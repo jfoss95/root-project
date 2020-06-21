@@ -14,6 +14,7 @@ zuul:
   # They should be only accessed through the path defined below.
   # Link: https://stackoverflow.com/questions/46317388/zuul-service-name-exposed-instead-of-route-path-only
   ignored-services: "*"
+  #ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   routes:
     # Map paths to services
     simple-rest-api:

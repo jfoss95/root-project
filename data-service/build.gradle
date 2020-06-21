@@ -24,6 +24,7 @@ dependencies {
 	//implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.springframework.geode:spring-geode-starter:1.1.1.RELEASE'
 	implementation 'org.projectlombok:lombok:1.18.12'
+	implementation 'org.hibernate:hibernate-core:5.4.17.Final'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testImplementation 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'

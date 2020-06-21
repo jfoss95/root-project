@@ -12,11 +12,11 @@ import org.springframework.data.gemfire.config.annotation.EnableSecurity;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
 import com.eureka.data.controller.DataServiceController;
-import com.eureka.data.model.UserInfo;
+import com.eureka.data.model.User;
 import com.eureka.data.repo.UserCredentialsRepository;
 
 @EnableGemfireRepositories(basePackageClasses = UserCredentialsRepository.class)
-@EnableEntityDefinedRegions(basePackageClasses = UserInfo.class)
+@EnableEntityDefinedRegions(basePackageClasses = User.class)
 @EnableIndexing
 @ComponentScan(basePackageClasses = DataServiceController.class)
 @EnablePdx
