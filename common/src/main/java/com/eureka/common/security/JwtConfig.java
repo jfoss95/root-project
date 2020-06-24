@@ -3,7 +3,7 @@ package com.eureka.common.security;
 import org.springframework.beans.factory.annotation.Value;
 
 public class JwtConfig {
-    @Value("${security.jwt.uri:/auth/**}")
+    @Value("${security.jwt.uri:/signin/**}")
     private String uri;
 
     @Value("${security.jwt.header:Authorization}")

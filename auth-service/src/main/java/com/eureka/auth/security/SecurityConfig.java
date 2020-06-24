@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -26,14 +28,11 @@ import com.eureka.auth.eo.DataServiceEO;
 import com.eureka.common.security.JwtConfig;
 
 @EnableWebSecurity 	// Enable security config. This annotation denotes config for spring security.
-public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
-	private static final Logger logger = LoggerFactory.getLogger(SecurityCredentialsConfig.class);
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
-
-	@Autowired
-	private JwtConfig jwtConfig;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -42,9 +41,9 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 			.and()
 	            .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
 	        .and()
-		    	.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))	
+	        	.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)//;//.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))	
 		.authorizeRequests()
-		    .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
+		    .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
 		    .anyRequest().authenticated();
 	}
 	/*
@@ -68,6 +67,11 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
+	public AuthTokenFilter authenticationJwtTokenFilter() {
+		return new AuthTokenFilter();
+	}
+	
+	@Bean
 	public JwtConfig jwtConfig() {
         	return new JwtConfig();
 	}
@@ -75,5 +79,11 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
 	}
 }

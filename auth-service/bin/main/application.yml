@@ -10,4 +10,7 @@ eureka:
 services:
   rest:
     data-service:
-      url: http://localhost:9091/findUserByUsername?username=
+      getUser:
+        url: http://localhost:9091/findUserByUsername?username=
+      addUser:
+        url: http://localhost:9091/addUser

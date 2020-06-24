@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(staticName="newUser")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NonNull
 	@Indexed
@@ -27,9 +26,8 @@ public class User {
 	@NonNull
 	@Indexed
     private String email;
-	@NonNull
 	@Indexed
-    private Set<Role> roles = new HashSet<>();
+    private Set<RoleName> roles = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -63,11 +61,11 @@ public class User {
 		this.email = email;
 	}
 	
-	public Set<Role> getRoles() {
+	public Set<RoleName> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(Set<RoleName> roles) {
 		this.roles = roles;
 	}
 }

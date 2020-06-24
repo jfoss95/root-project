@@ -3,27 +3,39 @@ package com.eureka.auth.vo;
 import java.util.List;
 
 public class SignInResponseVO {
-	String jwt;
+	String accesstoken;
+	String tokenType;
 	Long id;
 	String username;
 	String email;
 	List<String> roles;
 	
-	public SignInResponseVO(String jwt, List<String> roles, Long id, String username, String email) {
+	public SignInResponseVO(String accessToken, String tokenType, List<String> roles, Long id, String username, String email) {
 		super();
-		this.jwt = jwt;
+		this.accesstoken = accessToken;
+		this.tokenType = tokenType;
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
 	}
+
+	public String getAccesstoken() {
+		return accesstoken;
+	}
+
+	public void setAccesstoken(String accesstoken) {
+		this.accesstoken = accesstoken;
+	}
+
+	public String getTokenType() {
+		return tokenType;
+	}
+
+	public void setTokenType(String tokenType) {
+		this.tokenType = tokenType;
+	}
 	
-	public String getJwt() {
-		return jwt;
-	}
-	public void setJwt(String jwt) {
-		this.jwt = jwt;
-	}
 	public Long getId() {
 		return id;
 	}

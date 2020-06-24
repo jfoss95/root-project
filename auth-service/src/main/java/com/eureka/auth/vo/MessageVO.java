@@ -3,8 +3,11 @@ package com.eureka.auth.vo;
 public class MessageVO {
 	String message;
 
+	public MessageVO() {
+	}
+	
 	public MessageVO(String message) {
-		super();
+		this();
 		this.message = message;
 	}
 

@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eureka.auth.bo.AuthServiceBO;
-import com.eureka.auth.exception.ServiceException;
 import com.eureka.auth.util.JwtUtil;
 import com.eureka.auth.vo.MessageVO;
 import com.eureka.auth.vo.SignInResponseVO;
 import com.eureka.auth.vo.SignUpRequestVO;
 import com.eureka.auth.vo.UserCredentialsVO;
+import com.eureka.common.exception.EmailExistsException;
+import com.eureka.common.exception.IncorrectFormatException;
+import com.eureka.common.exception.ServiceException;
+import com.eureka.common.exception.UsernameExistsException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -43,7 +46,8 @@ public class AuthServiceController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequestVO signInRequestVO) throws ServiceException {
+	public ResponseEntity<MessageVO> registerUser(@Valid @RequestBody SignUpRequestVO signInRequestVO) 
+			throws ServiceException, UsernameExistsException, EmailExistsException, IncorrectFormatException {
 		authServiceBO.registerUser(signInRequestVO);
 		return ResponseEntity.ok(new MessageVO("User registered successfully!"));
 	}

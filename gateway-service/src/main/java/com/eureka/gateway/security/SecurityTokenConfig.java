@@ -2,7 +2,10 @@ package com.eureka.gateway.security;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,9 +18,14 @@ import com.eureka.common.security.JwtConfig;
 
 @EnableWebSecurity 	// Enable security config. This annotation denotes config for spring security.
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
+	private static final Logger logger = LoggerFactory.getLogger(SecurityTokenConfig.class);
+	
 	@Autowired
 	private JwtConfig jwtConfig;
  
+	@Value("${zuul.routes.auth-service.path}")
+	private String authPath;
+	
 	@Override
   	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -33,11 +41,12 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		// authorization requests config
 		.authorizeRequests()
 		   // allow all who are accessing "auth" service
-		   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()  
+		   .antMatchers(HttpMethod.POST, authPath).permitAll()  
 		   // must be an admin if trying to access admin area (authentication is also required here)
 		   .antMatchers("/simple" + "/admin/**").hasRole("ADMIN")
 		   // Any other request must be authenticated
 		   .anyRequest().authenticated(); 
+		logger.info(authPath);
 	}
 	
 	@Bean

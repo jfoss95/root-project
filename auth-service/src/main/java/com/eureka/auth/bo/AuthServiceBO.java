@@ -1,8 +1,6 @@
 package com.eureka.auth.bo;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -13,17 +11,21 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import com.eureka.auth.eo.DataServiceEO;
-import com.eureka.auth.exception.ServiceException;
+import com.eureka.common.exception.EmailExistsException;
+import com.eureka.common.exception.IncorrectFormatException;
+import com.eureka.common.exception.ServiceException;
+import com.eureka.common.exception.UsernameExistsException;
 import com.eureka.auth.security.UserDetailsImpl;
 import com.eureka.auth.util.JwtUtil;
-import com.eureka.auth.vo.RoleName;
 import com.eureka.auth.vo.SignInResponseVO;
 import com.eureka.auth.vo.SignUpRequestVO;
 import com.eureka.auth.vo.UserCredentialsVO;
-import com.eureka.auth.vo.UserVO;
+import com.eureka.common.security.JwtConfig;
 
+@Component
 public class AuthServiceBO {
 	private static final Logger logger = LoggerFactory.getLogger(AuthServiceBO.class);
 	
@@ -35,6 +37,9 @@ public class AuthServiceBO {
 
 	@Autowired
 	JwtUtil jwtUtil;
+	
+	@Autowired
+	JwtConfig jwtConfig;
 	
 	@Autowired
 	DataServiceEO dataServiceEO;
@@ -52,14 +57,13 @@ public class AuthServiceBO {
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 		
-		return new SignInResponseVO(jwt, roles, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail());
+		return new SignInResponseVO(jwt, jwtConfig.getPrefix(), roles, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail());
 	}
 	
-	public void registerUser(SignUpRequestVO signUpRequestVO) throws ServiceException {
-		UserVO userVO = new UserVO(signUpRequestVO.getUsername(), encoder.encode(signUpRequestVO.getPassword()), signUpRequestVO.getEmail());
-		Set<RoleName> roles = new HashSet<>();
-		roles.add(RoleName.ROLE_USER);
-		userVO.setRoles(roles);
-		dataServiceEO.addUser(userVO);
+	public void registerUser(SignUpRequestVO signUpRequestVO) throws ServiceException,
+	UsernameExistsException, EmailExistsException, IncorrectFormatException {
+		String encodedPassword = encoder.encode(signUpRequestVO.getPassword());
+		signUpRequestVO.setPassword(encodedPassword);
+		dataServiceEO.addUser(signUpRequestVO);
 	}
 }

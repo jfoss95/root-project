@@ -1,5 +1,6 @@
 package com.eureka.data.repo;
 
+import org.springframework.data.gemfire.repository.Query;
 import org.springframework.data.gemfire.repository.query.annotation.Trace;
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,8 +11,9 @@ public interface UserCredentialsRepository extends CrudRepository<User, Long> {
 	User findByUsername(String username);
 	
 	@Trace
-	Boolean existsByUsername(String username);
+	User findByEmail(String email);
 	
 	@Trace
-	Boolean existsByEmail(String email);
+	@Query("select max(id) from /user")
+	Long findHighestId();
 }

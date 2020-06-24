@@ -1,5 +1,6 @@
 package com.eureka.auth.vo;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class UserVO {
@@ -7,15 +8,8 @@ public class UserVO {
     private String username;
     private String password;
     private String email;
-	private Set<RoleName> roles;
-    
-    public UserVO(String username, String password, String email) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.email = email;
-	}
-
+	private Set<RoleName> roles = new HashSet<>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -52,6 +46,11 @@ public class UserVO {
 		return roles;
 	}
 
+	/*
+	public void setRoles(Set<RoleName> roles) {
+		//this.roles = roles;
+	}
+	*/
 	public void setRoles(Set<RoleName> roles) {
 		this.roles = roles;
 	}

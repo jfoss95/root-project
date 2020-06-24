@@ -1,18 +1,9 @@
 package com.eureka.data.config;
 
-import java.util.Properties;
-
-import org.apache.geode.cache.DataPolicy;
-import org.apache.geode.cache.GemFireCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.gemfire.CacheFactoryBean;
-import org.springframework.data.gemfire.LocalRegionFactoryBean;
-import org.springframework.data.gemfire.cache.GemfireCacheManager;
 
-import com.eureka.data.model.User;
 import com.eureka.data.repo.UserCredentialsRepository;
 
 @Configuration
